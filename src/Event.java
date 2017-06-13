@@ -3,7 +3,7 @@ public class Event
 {
     private final String processName;
     private final int startTime;
-    private final int finishTime;
+    private int finishTime;
     
     public Event(String processName, int startTime, int finishTime)
     {
@@ -25,5 +25,10 @@ public class Event
     public int getFinishTime()
     {
         return finishTime;
+    }
+    
+    public void setFinishTime(int finishTime)
+    {
+        this.finishTime = finishTime;
     }
 }

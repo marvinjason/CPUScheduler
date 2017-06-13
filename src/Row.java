@@ -28,6 +28,11 @@ public class Row
         this(processName, arrivalTime, burstTime, 0, 0, 0);
     }
     
+    public void setBurstTime(int burstTime)
+    {
+        this.burstTime = burstTime;
+    }
+    
     public void setWaitingTime(int waitingTime)
     {
         this.waitingTime = waitingTime;

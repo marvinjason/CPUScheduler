@@ -23,7 +23,7 @@ public class ShortestJobFirst extends CPUScheduler
             }
         });
         
-        List<Row> rows = deepCopy(this.getRows());
+        List<Row> rows = Utility.deepCopy(this.getRows());
         int time = rows.get(0).getArrivalTime();
         
         while (!rows.isEmpty())
@@ -72,17 +72,5 @@ public class ShortestJobFirst extends CPUScheduler
             row.setWaitingTime(this.getEvent(row).getStartTime() - row.getArrivalTime());
             row.setTurnaroundTime(row.getWaitingTime() + row.getBurstTime());
         }
-    }
-    
-    private List<Row> deepCopy(List<Row> oldList)
-    {
-        List<Row> newList = new ArrayList();
-        
-        for (Row row : oldList)
-        {
-            newList.add(row);
-        }
-        
-        return newList;
     }
 }

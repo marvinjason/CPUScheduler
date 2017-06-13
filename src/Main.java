@@ -5,8 +5,11 @@ public class Main
 {
     public static void main(String[] args)
     {
-        // Done: fcfs();
-        // Done: sjf();
+        fcfs();
+        System.out.println("------------------------------------");
+        sjf();
+        System.out.println("------------------------------------");
+        srt();
     }
     
     public static void fcfs()
@@ -17,28 +20,7 @@ public class Main
         fcfs.add(new Row("P3", 4, 3));
         fcfs.add(new Row("P4", 6, 6));
         fcfs.process();
-        
-        System.out.println("Process\tAT\tBT\tWT\tTAT");
-
-        for (Row row : fcfs.getRows())
-        {
-            System.out.println(row.getProcessName() + "\t" + row.getArrivalTime() + "\t" + row.getBurstTime() + "\t" + row.getWaitingTime() + "\t" + row.getTurnaroundTime());
-        }
-        
-        System.out.println();
-        
-        for (int i = 0; i < fcfs.getTimeline().size(); i++)
-        {
-            List<Event> timeline = fcfs.getTimeline();
-            System.out.print(timeline.get(i).getStartTime() + "(" + timeline.get(i).getProcessName() + ")");
-            
-            if (i == fcfs.getTimeline().size() - 1)
-            {
-                System.out.print(timeline.get(i).getFinishTime());
-            }
-        }
-        
-        System.out.println();
+        display(fcfs);
     }
     
     public static void sjf()
@@ -50,22 +32,40 @@ public class Main
         sjf.add(new Row("P4", 6, 4));
         sjf.add(new Row("P5", 7, 1));
         sjf.process();
-        
+        display(sjf);
+    }
+    
+    public static void srt()
+    {
+        CPUScheduler srt = new ShortestRemainingTime();
+        srt.add(new Row("P1", 8, 1));
+        srt.add(new Row("P2", 5, 1));
+        srt.add(new Row("P3", 2, 7));
+        srt.add(new Row("P4", 4, 3));
+        srt.add(new Row("P5", 2, 8));
+        srt.add(new Row("P6", 4, 2));
+        srt.add(new Row("P7", 3, 5));
+        srt.process();
+        display(srt);
+    }
+    
+    public static void display(CPUScheduler object)
+    {
         System.out.println("Process\tAT\tBT\tWT\tTAT");
 
-        for (Row row : sjf.getRows())
+        for (Row row : object.getRows())
         {
             System.out.println(row.getProcessName() + "\t" + row.getArrivalTime() + "\t" + row.getBurstTime() + "\t" + row.getWaitingTime() + "\t" + row.getTurnaroundTime());
         }
         
         System.out.println();
         
-        for (int i = 0; i < sjf.getTimeline().size(); i++)
+        for (int i = 0; i < object.getTimeline().size(); i++)
         {
-            List<Event> timeline = sjf.getTimeline();
+            List<Event> timeline = object.getTimeline();
             System.out.print(timeline.get(i).getStartTime() + "(" + timeline.get(i).getProcessName() + ")");
             
-            if (i == sjf.getTimeline().size() - 1)
+            if (i == object.getTimeline().size() - 1)
             {
                 System.out.print(timeline.get(i).getFinishTime());
             }
