@@ -5,11 +5,16 @@ public class Main
 {
     public static void main(String[] args)
     {
+        System.out.println("-----------------FCFS-----------------");
         fcfs();
-        System.out.println("------------------------------------");
+        System.out.println("-----------------SJF-----------------");
         sjf();
-        System.out.println("------------------------------------");
+        System.out.println("-----------------SRT-----------------");
         srt();
+        System.out.println("-----------------PSN (Unchecked)-----------------");
+        psn();
+        System.out.println("-----------------PSP (Unchecked)-----------------");
+        psp();
     }
     
     public static void fcfs()
@@ -47,6 +52,34 @@ public class Main
         srt.add(new Row("P7", 3, 5));
         srt.process();
         display(srt);
+    }
+    
+    public static void psn()
+    {
+        CPUScheduler psn = new PriorityNonPreemptive();
+        psn.add(new Row("P1", 8, 1));
+        psn.add(new Row("P2", 5, 1));
+        psn.add(new Row("P3", 2, 7));
+        psn.add(new Row("P4", 4, 3));
+        psn.add(new Row("P5", 2, 8));
+        psn.add(new Row("P6", 4, 2));
+        psn.add(new Row("P7", 3, 5));
+        psn.process();
+        display(psn);
+    }
+    
+    public static void psp()
+    {
+        CPUScheduler psp = new PriorityPreemptive();
+        psp.add(new Row("P1", 8, 1));
+        psp.add(new Row("P2", 5, 1));
+        psp.add(new Row("P3", 2, 7));
+        psp.add(new Row("P4", 4, 3));
+        psp.add(new Row("P5", 2, 8));
+        psp.add(new Row("P6", 4, 2));
+        psp.add(new Row("P7", 3, 5));
+        psp.process();
+        display(psp);
     }
     
     public static void display(CPUScheduler object)
