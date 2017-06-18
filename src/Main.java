@@ -11,9 +11,9 @@ public class Main
         sjf();
         System.out.println("-----------------SRT-----------------");
         srt();
-        System.out.println("-----------------PSN (Unchecked)-----------------");
+        System.out.println("-----------------PSN-----------------");
         psn();
-        System.out.println("-----------------PSP (Unchecked)-----------------");
+        System.out.println("-----------------PSP-----------------");
         psp();
     }
     
