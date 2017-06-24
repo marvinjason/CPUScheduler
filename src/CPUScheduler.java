@@ -6,11 +6,13 @@ public abstract class CPUScheduler
 {
     private final List<Row> rows;
     private final List<Event> timeline;
+    private int timeQuantum;
     
     public CPUScheduler()
     {
         rows = new ArrayList();
         timeline = new ArrayList();
+        timeQuantum = 1;
     }
     
     public boolean add(Row row)
@@ -18,18 +20,38 @@ public abstract class CPUScheduler
         return rows.add(row);
     }
     
-    public boolean remove(String name)
+    public void setTimeQuantum(int timeQuantum)
     {
-        for (int i = 0; i < rows.size(); i++)
+        this.timeQuantum = timeQuantum;
+    }
+    
+    public int getTimeQuantum()
+    {
+        return timeQuantum;
+    }
+    
+    public double getAverageWaitingTime()
+    {
+        double avg = 0.0;
+        
+        for (Row row : rows)
         {
-            if (rows.get(i).getProcessName().equals(name))
-            {
-                rows.remove(i);
-                return true;
-            }
+            avg += row.getWaitingTime();
         }
         
-        return false;
+        return avg / rows.size();
+    }
+    
+    public double getAverageTurnAroundTime()
+    {
+        double avg = 0.0;
+        
+        for (Row row : rows)
+        {
+            avg += row.getTurnaroundTime();
+        }
+        
+        return avg / rows.size();
     }
     
     public Event getEvent(Row row)
@@ -57,9 +79,3 @@ public abstract class CPUScheduler
     
     public abstract void process();
 }
-
-//First Come First Serve
-//Shortest Job First
-//Shortest Remaining Time
-//Priority Scheduling
-//Round Robin

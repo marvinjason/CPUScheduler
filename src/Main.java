@@ -5,7 +5,7 @@ public class Main
 {
     public static void main(String[] args)
     {
-        System.out.println("-----------------FCFS-----------------");
+        System.out.println("-----------------FCFS----------------");
         fcfs();
         System.out.println("-----------------SJF-----------------");
         sjf();
@@ -15,6 +15,8 @@ public class Main
         psn();
         System.out.println("-----------------PSP-----------------");
         psp();
+        System.out.println("-----------------RR------------------");
+        rr();
     }
     
     public static void fcfs()
@@ -82,6 +84,20 @@ public class Main
         display(psp);
     }
     
+    public static void rr()
+    {
+        CPUScheduler rr = new RoundRobin();
+        rr.setTimeQuantum(2);
+        rr.add(new Row("P1", 0, 4));
+        rr.add(new Row("P2", 1, 5));
+        rr.add(new Row("P3", 2, 6));
+        rr.add(new Row("P4", 4, 1));
+        rr.add(new Row("P5", 6, 3));
+        rr.add(new Row("P6", 7, 2));
+        rr.process();
+        display(rr);
+    }
+    
     public static void display(CPUScheduler object)
     {
         System.out.println("Process\tAT\tBT\tWT\tTAT");
@@ -104,6 +120,6 @@ public class Main
             }
         }
         
-        System.out.println();
+        System.out.println("\n\nAverage WT: " + object.getAverageWaitingTime() + "\nAverage TAT: " + object.getAverageTurnAroundTime());
     }
 }
