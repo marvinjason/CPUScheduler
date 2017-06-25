@@ -67,6 +67,19 @@ public abstract class CPUScheduler
         return null;
     }
     
+    public Row getRow(String process)
+    {
+        for (Row row : rows)
+        {
+            if (row.getProcessName().equals(process))
+            {
+                return row;
+            }
+        }
+        
+        return null;
+    }
+    
     public List<Row> getRows()
     {
         return rows;
