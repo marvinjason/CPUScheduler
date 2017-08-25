@@ -5,11 +5,13 @@ Java implementation of 6 CPU scheduling algorithms: *First Come First Serve (FCF
 ## Usage
 
 Instantiate a `CPUScheduler` object of the algorithm
+
 ```java
 CPUScheduler fcfs = new FirstComeFirstServe();
 ```
 
 Add a new `Row` for every job queued
+
 ```java
 fcfs.add(new Row("P1", 0, 5));
 fcfs.add(new Row("P2", 2, 4));
@@ -18,19 +20,22 @@ fcfs.add(new Row("P4", 6, 6));
 ```
 
 Call the `process` method
+
 ```java
 fcfs.process();
 ```
 
 Use the accessors
+
 ```java
-fcfs.getAverageWaitingTime(); // 3.5
-fcfs.getAverageTurnAroundTime(); // 8.0
+fcfs.getAverageWaitingTime();     // 3.5
+fcfs.getAverageTurnAroundTime();  // 8.0
 ```
 
 ### Round Robin
 
 In the case of `RoundRobin`, you must first set a time quantum before calling `process`.
+
 ```java
 CPUScheduler rr = new RoundRobin();
 
@@ -43,9 +48,32 @@ rr.setTimeQuantum(2);
 rr.process();
 ```
 
+### Rows
+
+Using the object's `getRows` method will return a `List` of all queued `Row`. After `process`, each `Row` will reflect their respective computed *waiting time* and *turnaround time*.
+
+```java
+CPUScheduler sjf = new ShortestJobFirst();
+List<Row> rows;
+
+sjf.add(new Row("P1", 0, 5));
+sjf.add(new Row("P2", 2, 4));
+
+rows = sjf.getRows();
+rows.get(1).getWaitingTime();     // 0
+rows.get(1).getTurnaroundTime();  // 0
+
+sjf.process();
+
+rows = sjf.getRows();
+rows.get(1).getWaitingTime();     // 3
+rows.get(1).getTurnaroundTime();  // 7
+```
+
 ### Timeline
 
 Using the object's `getTimeline` method will return a `List` of `Event` which can be used to draw a Gantt chart. The timeline shows what job is being processed at the given time.
+
 ```java
 List<Event> timeline = fcfs.getTimeline();
 
@@ -59,6 +87,7 @@ System.out.print(timeline.get(timeline.size() - 1).getFinishTime());
 ```
 
 Result:
+
 ```
 0
 |  P1
